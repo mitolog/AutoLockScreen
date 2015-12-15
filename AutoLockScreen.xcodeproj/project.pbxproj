@@ -20,6 +20,7 @@
 		46E678B81C1F3D91007A2C85 /* RxCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46E678AF1C1F3D82007A2C85 /* RxCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		46E678B91C1F3D91007A2C85 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46E678B01C1F3D82007A2C85 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		46E678BA1C1F3D91007A2C85 /* SocketIO.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46E678B11C1F3D82007A2C85 /* SocketIO.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		46E678BC1C1F3F3E007A2C85 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E678BB1C1F3F3E007A2C85 /* Consts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		46E678AF1C1F3D82007A2C85 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
 		46E678B01C1F3D82007A2C85 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		46E678B11C1F3D82007A2C85 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/Mac/SocketIO.framework; sourceTree = "<group>"; };
+		46E678BB1C1F3F3E007A2C85 /* Consts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 		46E6788E1C1F3BBB007A2C85 /* AutoLockScreen */ = {
 			isa = PBXGroup;
 			children = (
+				46E678BB1C1F3F3E007A2C85 /* Consts.swift */,
 				46E6788F1C1F3BBB007A2C85 /* AppDelegate.swift */,
 				46E678911C1F3BBB007A2C85 /* ViewController.swift */,
 				46E678931C1F3BBB007A2C85 /* Assets.xcassets */,
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46E678921C1F3BBB007A2C85 /* ViewController.swift in Sources */,
+				46E678BC1C1F3F3E007A2C85 /* Consts.swift in Sources */,
 				46E678901C1F3BBB007A2C85 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
