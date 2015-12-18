@@ -9,4 +9,5 @@
 struct Consts {
     static let hostUrlKey = "hostUrl"
     static let appName = "macApp"
+    static let walkThresholdNum = 4
 }

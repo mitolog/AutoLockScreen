@@ -17,6 +17,8 @@ class ViewModel {
     var hostUrlSeq = PublishSubject<String>()
     var sioConnectedSeq = PublishSubject<Bool>()
     var connectBtnSeq = PublishSubject<Bool>()
+    var isSleeping = Variable<Bool>(false)
+    var walkingCnt = Variable<Int>(0)
     
     let disposeBag = DisposeBag()
     
@@ -55,9 +57,16 @@ class ViewModel {
             self.connectBtnSeq.on(.Next(false))
         })
         
-        self.socket?.on("publish", callback: { [unowned viewController] data, ack in
-            print("data: \(data)\n ack:\(ack)")
-            viewController.dataLabel.stringValue = data.first as! String
+        self.socket?.on("publish", callback: { [unowned self, unowned viewController] data, ack in
+            //print("data: \(data)\n ack:\(ack)")
+            let csvStr = data.first as! String
+            viewController.dataLabel.stringValue = csvStr
+            
+            let comps = csvStr.componentsSeparatedByString(",")
+            let isWalking = Int(comps[1])
+            if !self.isSleeping.value && isWalking > 0 {
+                self.walkingCnt.value++
+            }
         })
 
 /* automatically disconnect when another one(might be ios app) has disconnected
@@ -92,6 +101,7 @@ class ViewModel {
                 
                 if !currentState {
                     self.disconnect()
+                    self.isSleeping.value = false
                 } else {
                     
                     let hostUrl = controller.hostUrlTextField.stringValue
@@ -112,6 +122,25 @@ class ViewModel {
         .bindTo(self.connectBtnSeq)
         .addDisposableTo(self.disposeBag)
 
+        combineLatest(self.walkingCnt, self.isSleeping) { walkCnt, isSleeping in
+            return (walkCnt > Consts.walkThresholdNum && !isSleeping) ?? false
+        }
+        .subscribeOn(MainScheduler.sharedInstance)
+        .subscribeNext { [unowned self] canSleep in
+            
+            if canSleep {
+                // activate task
+                let task = NSTask()
+                task.launchPath = NSBundle.mainBundle().pathForResource("CGSession", ofType: nil)!
+                task.arguments = ["-suspend"]
+                task.launch()
+                
+                // reset parameters
+                self.isSleeping.value = true
+                self.walkingCnt.value = 0
+            }
+            
+        }.addDisposableTo(self.disposeBag)
     }
     
     func disconnect() {
